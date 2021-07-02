@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Map } from './Map';
 import { getTaxis } from "./api";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className="App">
       <p>hello world</p>
+      <Map taxis={driverData} latitude={1.285194} longitude={103.8522982}/>
     </div>
   );
 }
