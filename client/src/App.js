@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { getTaxis } from "./api";
 
 function App() {
+  const [driverData, setDriverData] = useState([]);
+  useEffect(() => {
+    async function fetch() {
+      try {
+        const data = await getTaxis();
+        console.log('sophia')
+        console.log('data', data)
+        setDriverData(data);
+        // console.log(driverData)
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetch()
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>hello world</p>
     </div>
   );
 }
