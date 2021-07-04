@@ -19,10 +19,15 @@ const App: React.FunctionComponent = () => {
     fetch()
   }, [])
 
+  const defaultCenter = {
+    lat: 1.285194,
+    lng: 103.8522982
+  }
+
   return (
     <div className="App">
       <p>hello world</p>
-      <Map taxis={driverData} latitude={1.285194} longitude={103.8522982}/>
+      <Map taxis={driverData} center={defaultCenter}/>
     </div>
   );
 }
