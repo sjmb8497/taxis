@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Map } from './Map';
 import { getTaxis } from "./api";
 
-function App() {
+const App: React.FunctionComponent = () => {
   const [driverData, setDriverData] = useState([]);
   useEffect(() => {
     async function fetch() {
