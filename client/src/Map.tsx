@@ -33,13 +33,12 @@ const Marker = styled.div<Coords>`
 `;
 
 export const Map: React.FunctionComponent<Props> = ({ taxis, center }) => {
-    const [zoom, setZoom] = useState(13);
     return (
         <div style={{ height: '100vh', width: '100vw' }}>
             <GoogleMapReact
             bootstrapURLKeys={{ key: "AIzaSyDha5iMRcmLfdQ-c4t7eu5dEoZXYGmVri4" }}
             center={center}
-            defaultZoom={zoom}
+            defaultZoom={13}
             >
             {taxis.drivers.length && 
             taxis.drivers.map((taxi) => (
