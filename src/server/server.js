@@ -10,7 +10,8 @@ export function Server() {
   router.get('/getTaxis', async (req, res) => {
     const latitude = req.query.latitude;
     const longitude = req.query.longitude;
-    const response = await fetch(`https://qa-interview-test.splytech.dev/api/drivers?latitude=${latitude}&longitude=${longitude}&count=5`, {});
+    const count = req.query.count;
+    const response = await fetch(`https://qa-interview-test.splytech.dev/api/drivers?latitude=${latitude}&longitude=${longitude}&count=${count}`, {});
     const data = await response.json();
     res.header({"Access-Control-Allow-Origin": "*"});
     res.json(data);

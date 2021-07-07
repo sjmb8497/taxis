@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Map, driverDataInterface } from './Map';
+import { Map } from './components/Map';
+import { distance } from './helpers/distance';
+import { locationInterface, driverDataInterface } from './helpers/interfaces'
 import { getTaxis } from "./api";
+import Slider from "@material-ui/core/Slider";
 
 const App: React.FunctionComponent = () => {
   const [driverData, setDriverData] = useState<driverDataInterface>({
     pickup_eta: 1,
     drivers: [],
   });
-  interface locationInterface {
-    lat: number;
-    lng: number;
-}
+
   const [userLocation, setUserLocation] = useState<locationInterface>({
     lat: 51.5049375,
     lng: -0.0964509
@@ -21,29 +21,10 @@ const App: React.FunctionComponent = () => {
     lng: -0.0964509
   });
 
+  const [numberOfDrivers, setNumberOfDrivers] = useState<number>(3);
   const [currentLocation, setCurrentLocation] = useState<string>('');
 
-  const distance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    if ((lat1 == lat2) && (lon1 == lon2)) {
-      return 0;
-    }
-    else {
-      var radlat1 = Math.PI * lat1/180;
-      var radlat2 = Math.PI * lat2/180;
-      var theta = lon1-lon2;
-      var radtheta = Math.PI * theta/180;
-      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-      if (dist > 1) {
-        dist = 1;
-      }
-      dist = Math.acos(dist);
-      dist = dist * 180/Math.PI;
-      dist = dist * 60 * 1.1515;
-      return dist;
-    }
-  }
-
-const findCurrentLocation = (latitude: number, longitude: number) => {
+  const findCurrentLocation = (latitude: number, longitude: number) => {
     setUserLocation({lat: latitude,lng: longitude});
 
     const singaporeDistance = distance(userLocation.lat, userLocation.lng, 1.285194, 103.8522982);
@@ -54,14 +35,14 @@ const findCurrentLocation = (latitude: number, longitude: number) => {
     } else {
       setCurrentLocation('Singapore');
     }
-}
+  }
 
   const findClosestOffice = () => {
       navigator.geolocation.getCurrentPosition((position) => {
         return findCurrentLocation(position.coords.latitude, position.coords.longitude);
       });
-  
-  }
+    }
+
   const changeCenter = () => {
     if (currentLocation === 'London') {
       setCurrentLocation('Singapore')
@@ -70,30 +51,47 @@ const findCurrentLocation = (latitude: number, longitude: number) => {
     }
   }
 
+  const handleSlider = (event: any, newValue: any) => {
+    setNumberOfDrivers(newValue);
+  }
+
   useEffect(() => {
     async function fetch() {
       try {
         findClosestOffice();
-        const data = await getTaxis(center.lat, center.lng);
+        const data = await getTaxis(center.lat, center.lng, numberOfDrivers);
         setDriverData(data);
       } catch (err) {
         console.error(err);
       }
     }
     fetch()
-  }, [center])
+  }, [center, numberOfDrivers])
 
   useEffect(() => {
-    if (currentLocation == 'London') {
+    if (currentLocation === 'London') {
       setCenter({lat: 51.5049375, lng:-0.0964509})
     } else {
       setCenter({lat: 1.285194, lng:103.8522982})
     }
   }, [currentLocation])
 
+  const marks = [
+    {value: 0,label: '0'}, {value: 5,label: '5'}, {value: 10,label: '10'}, {value: 15,label: '15'}, {value: 20,label: '20'}
+  ];
+
   return (
     <div className="App">
-      <button onClick={() => changeCenter()}>Change center</button>
+      <button onClick={() => changeCenter()}>Change location</button>
+      <p>Change number of taxis:</p>
+      <Slider
+        defaultValue={numberOfDrivers}
+        step={1}
+        min={0}
+        max={20}
+        onChange={handleSlider}
+        marks={marks}
+      ></Slider>
       <Map taxis={driverData} center={center}/>
     </div>
   );

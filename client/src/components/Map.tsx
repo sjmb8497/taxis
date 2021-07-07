@@ -1,29 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import GoogleMapReact, { Coords } from 'google-map-react';
+import { driverDataInterface, center } from '../helpers/interfaces'
 
 type Props = {
     taxis: driverDataInterface;
     center: center;
 };
-
-interface center {
-    lat: number;
-    lng: number;
-}
-interface driver {
-    driver_id: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      bearing: number;
-    };
-  }
-  
-export interface driverDataInterface {
-    pickup_eta: number;
-    drivers: driver[];
-}
 
 const Marker = styled.div<Coords>`
   height: 15px;
