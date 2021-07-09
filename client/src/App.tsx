@@ -21,7 +21,7 @@ const App: React.FunctionComponent = () => {
     lng: -0.0964509
   });
 
-  const [numberOfDrivers, setNumberOfDrivers] = useState<number>(3);
+  const [numberOfDrivers, setNumberOfDrivers] = useState<number>(5);
   const [currentLocation, setCurrentLocation] = useState<string>('');
 
   const findCurrentLocation = (latitude: number, longitude: number) => {
@@ -65,7 +65,11 @@ const App: React.FunctionComponent = () => {
         console.error(err);
       }
     }
-    fetch()
+    fetch();
+    const interval = setInterval(async () => {
+      fetch()
+    }, 5000);
+    return () => clearInterval(interval);
   }, [center, numberOfDrivers])
 
   useEffect(() => {

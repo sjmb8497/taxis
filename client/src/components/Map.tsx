@@ -21,7 +21,7 @@ export const Map: React.FunctionComponent<Props> = ({ taxis, center }) => {
             <GoogleMapReact
             bootstrapURLKeys={{ key: "AIzaSyDha5iMRcmLfdQ-c4t7eu5dEoZXYGmVri4" }}
             center={center}
-            defaultZoom={13}
+            defaultZoom={14}
             >
             {taxis.drivers.length && 
             taxis.drivers.map((taxi) => (

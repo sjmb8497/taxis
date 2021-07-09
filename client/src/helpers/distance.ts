@@ -1,5 +1,5 @@
 export const distance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    if ((lat1 == lat2) && (lon1 == lon2)) {
+    if ((lat1 === lat2) && (lon1 === lon2)) {
       return 0;
     }
     else {
