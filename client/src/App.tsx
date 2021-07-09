@@ -51,14 +51,13 @@ const App: React.FunctionComponent = () => {
     }
   }
 
-  const handleSlider = (event: any, newValue: any) => {
-    setNumberOfDrivers(newValue);
-  }
+  const handleSlider = (event: any, newValue: any) => { setNumberOfDrivers(newValue); }
+
+  useEffect(() => { findClosestOffice() }, [])
 
   useEffect(() => {
     async function fetch() {
       try {
-        findClosestOffice();
         const data = await getTaxis(center.lat, center.lng, numberOfDrivers);
         setDriverData(data);
       } catch (err) {
