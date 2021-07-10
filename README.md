@@ -22,13 +22,16 @@ Add api key to components/Map.tsx file on line 22. This key can be created as sp
     ```
 
 ### Run application
+
     ```
     npm start
     ```
 
 ### Run tests
+
     ```
     cd client
     npm start
     ```
+    
     Open http://localhost:3000 to view in the browser.
