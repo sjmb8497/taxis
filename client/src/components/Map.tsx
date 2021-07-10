@@ -19,7 +19,7 @@ export const Map: React.FunctionComponent<Props> = ({ taxis, center }) => {
     return (
         <div style={{ height: '100vh', width: '100vw' }}>
             <GoogleMapReact
-            bootstrapURLKeys={{ key: "AIzaSyDha5iMRcmLfdQ-c4t7eu5dEoZXYGmVri4" }}
+            // bootstrapURLKeys={{ key: "Insert key here" }}
             center={center}
             defaultZoom={14}
             >
